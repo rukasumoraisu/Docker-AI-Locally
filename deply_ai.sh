@@ -1,37 +1,50 @@
-cat << 'EOF' > deploy_ai.sh
 #!/bin/bash
 
-echo "Starting Local AI Environment..."
+# --- Local AI Infrastructure Deployment Script ---
+# Author: rukasumoraisu
+# Purpose: Deploy an Uncensored Research AI (Ollama + Open WebUI)
 
-# 1. Check if Docker is running!
+echo "Step 1: Creating Docker Configuration..."
 
-# 2. Start or Create the Container
-CONTAINER_NAME="open-webui"
-IMAGE_NAME="ghcr.io/open-webui/open-webui:main"
+# Creating the docker-compose file on the fly
+cat << 'DOCKER' > docker-compose.yaml
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: always
 
-if [ "$(docker ps -aq -f name=$CONTAINER_NAME)" ]; then
-    echo "📦 Container exists. Powering up..."
-    docker start $CONTAINER_NAME
-else
-    echo "🔨 Creating new container instance..."
-    docker run -d -p 3000:8080 \
-      --add-host=host.docker.internal:host-gateway \
-      -v open-webui:/app/backend/data \
-      --name $CONTAINER_NAME \
-      $IMAGE_NAME
-fi
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    ports:
+      - "3000:8080"
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+    volumes:
+      - open-webui_data:/app/backend/data
+    depends_on:
+      - ollama
+    restart: always
 
-# 3. Model Verification & Pulling
-echo "🧠 Verifying Unfiltered Model: Dolphin-Llama3..."
-echo "Note: If this is the first run, the download may take a few minutes."
+volumes:
+  ollama_data:
+  open-webui_data:
+DOCKER
 
-# We use 'ollama pull' to ensure the model is available without entering interactive mode
-docker exec -it $CONTAINER_NAME ollama pull dolphin-llama3
+echo "Step 2: Starting Containers..."
+
+docker compose up -d
+
+echo "⏳ Waiting for Ollama service to wake up..."
+sleep 5
+
+echo "🧠 Step 3: Pulling Uncensored Model (Dolphin-Llama3)..."
 
 echo "------------------------------------------------"
-echo "✅ Deployment Successful!"
-echo "🌐 Access the Interface: http://localhost:3000"
+echo "Environment is READY!"
+echo "URL: http://localhost:3000"
+echo "Model: dolphin-llama3 (Unfiltered)"
 echo "------------------------------------------------"
-EOF
-
-chmod +x deploy_ai.sh
