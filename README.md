@@ -25,8 +25,8 @@ The environment leverages **Docker** to orchestrate two primary components:
 
 2.  **Execute the deployment script:**
     ```bash
-    chmod +x deploy_ai.sh
-    ./deploy_ai.sh
+    chmod +x deply_ai.sh
+    ./deply_ai.sh
     ```
 
 3.  **Access the interface:**
