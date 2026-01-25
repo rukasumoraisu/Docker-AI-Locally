@@ -1,5 +1,6 @@
 # Docker-AI-Locally
-Run your own AI locally on localhost:3030 with fast setup and local persistence!
+Run your own AI locally on localhost:3000 with fast setup and local persistence!
+
 This project provides a fully containerized, local environment for interacting with Large Language Models (LLMs) without corporate filters or data privacy concerns. It is designed for advanced academic and technical research.
 
 The environment leverages **Docker** to orchestrate two primary components:
@@ -29,7 +30,14 @@ The environment leverages **Docker** to orchestrate two primary components:
     ./deply_ai.sh
     ```
 
-3.  **Access the interface:**
+3.  **Final Configuration (Required):**
+    After logging in for the first time, you must link the services:
+    * Go to **Settings** > **Admin Settings** > **Connections**.
+    * **Disable** the **OpenAI API** service (toggle the switch to OFF).
+    * Under **Ollama API**, change the address to: `http://ollama:11434`
+    * Click the **Refresh** icon next to the address to confirm the connection (it should show a green success message).
+
+4.  **Access the interface:**
     Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Model Information: Dolphin-Llama3
@@ -38,4 +46,5 @@ This environment uses the **Dolphin-Llama3** model. Unlike standard models (like
 * **Compliant:** They follow instructions without moralizing or refusing prompts.
 * **Uncensored:** Trained on datasets filtered to remove refusals, allowing for advanced research into cybersecurity, chemistry, and other restricted fields.
 
+---
 *Created for advanced study and technical research purposes.*
