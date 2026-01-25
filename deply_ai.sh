@@ -1,18 +1,9 @@
 cat << 'EOF' > deploy_ai.sh
 #!/bin/bash
 
-# --- Local AI Environment Deployment Script ---
-# This script deploys an uncensored LLM environment using Docker.
-# Components: Open WebUI (Frontend) + Ollama (Backend)
-# Model: Dolphin-Llama3 (Unfiltered for advanced research)
+echo "Starting Local AI Environment..."
 
-echo "🚀 Starting Local AI Environment..."
-
-# 1. Check if Docker is running
-if ! docker info >/dev/null 2>&1; then
-    echo "❌ Error: Docker daemon is not running. Please start Docker and try again."
-    exit 1
-fi
+# 1. Check if Docker is running!
 
 # 2. Start or Create the Container
 CONTAINER_NAME="open-webui"
