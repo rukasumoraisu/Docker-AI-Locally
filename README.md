@@ -35,7 +35,8 @@ The environment leverages **Docker** to orchestrate two primary components:
     * Go to **Settings** > **Admin Settings** > **Connections**.
     * **Disable** the **OpenAI API** service (toggle the switch to OFF).
     * Under **Ollama API**, change the address to: `http://ollama:11434`
-    * Click the **Refresh** icon next to the address to confirm the connection (it should show a green success message).
+    * Click the **Refresh** icon next to the address to confirm the connection.
+    * **Troubleshooting:** If the model does not appear in the chat selection, go to **Settings** > **Admin Settings** > **Models** to download or import it manually.
 
 4.  **Access the interface:**
     Open [http://localhost:3000](http://localhost:3000) in your browser.
